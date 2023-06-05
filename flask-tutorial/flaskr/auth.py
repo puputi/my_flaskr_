@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
 
-bp = Blueprint('auth', __name__, url_prefix='/auth')
+bp = Blueprint('auth', __name__, url_prefix='/auth') #blueprint封装方式
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
@@ -36,7 +36,7 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return render_template('auth/register.html')  # 查找替换
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -61,7 +61,7 @@ def login():
 
         flash(error)
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html') #注册、认证模块，蓝图-预制、组装
 
 @bp.before_app_request
 def load_logged_in_user():
