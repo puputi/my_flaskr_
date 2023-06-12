@@ -1,24 +1,38 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <h1>Flaskr</h1>
-  <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
-  </ul>
-</nav>
-<section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
-</section>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %} - Flaskr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body class="night-mode">
+    <header>
+      <div class="container">
+        <h1 class="logo" style="color: #fff;">Flaskr</h1>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('index') }}" style="color: #fff;">Home</a></li>
+            <li><a href="{{ url_for('auth.login') }}" style="color: #fff;">Log In</a></li>
+            <li><a href="{{ url_for('auth.register') }}" style="color: #fff;">Register</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+      <div class="container">
+        <p style="color: #fff;">&copy; 2023 Flaskr</p>
+      </div>
+    </footer>
+  </body>
+</html>
